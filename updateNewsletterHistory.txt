@@ -1,0 +1,28 @@
+map updateNewsletterHistory(map formData) {
+    // Primero declaramos la variable y obtenemos los valores.
+    string auxNewsletter = formData.get("Aux_Newsletter");
+    string currentNewsletter = formData.get("Newsletter");
+    string historico = formData.get("Historico_Newsletter");
+
+    // Asignamos como vacíos los valores nulos para evitar tanto errores
+    // como excesos de anidaciones de if/else
+    if(currentNewsletter == null) { currentNewsletter = ""; }
+    if(historico == null) { historico = ""; }
+
+    // Si Newsletter está vacío, lo actualizamos con Aux_Newsletter
+    if(currentNewsletter.trim() == "") {
+        formData.put("Newsletter", auxNewsletter);
+    }
+
+    // Añadimos Aux_Newsletter al final del histórico
+    if(historico.trim() == "") {
+        historico = auxNewsletter;
+    }
+    else {
+        historico = historico + ";" + auxNewsletter;
+    }
+
+    formData.put("Historico_Newsletter", historico);
+
+    return formData;
+}
